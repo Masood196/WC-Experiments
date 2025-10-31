@@ -1,0 +1,84 @@
+const readline = require('readline');
+
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+
+function calculate(num1, operator, num2) {
+    switch (operator) {
+        case '+':
+            return num1 + num2;
+        case '-':
+            return num1 - num2;
+        case '*':
+            return num1 * num2;
+        case '/':
+            if (num2 === 0) {
+                return "Error: Division by zero is not allowed.";
+            }
+            return num1 / num2;
+        default:
+            return "Error: Invalid operator.";
+    }
+}
+
+/**
+ * The main application loop to prompt the user for input.
+ */
+function startCalculator() {
+    console.log("-----------------------------------------");
+    console.log("Node.js Simple Calculator");
+    console.log("Enter calculations in the format: <number> <operator> <number>");
+    console.log("Operators supported: +, -, *, /");
+    console.log("Type 'exit' to quit the program.");
+    console.log("-----------------------------------------");
+
+    // Function to handle the continuous loop
+    const promptUser = () => {
+        rl.question('Enter calculation: ', (input) => {
+            // Check for exit command
+            if (input.toLowerCase() === 'exit') {
+                console.log('Exiting calculator. Goodbye!');
+                rl.close();
+                return;
+            }
+
+            // Split the input into parts (e.g., "10 + 5" -> ["10", "+", "5"])
+            const parts = input.trim().split(/\s+/);
+
+            if (parts.length !== 3) {
+                console.log("Invalid format. Please use: <number> <operator> <number>");
+                promptUser(); // Restart the prompt
+                return;
+            }
+
+            const [num1Str, operator, num2Str] = parts;
+            const num1 = parseFloat(num1Str);
+            const num2 = parseFloat(num2Str);
+
+            // Basic input validation
+            if (isNaN(num1) || isNaN(num2)) {
+                console.log("Error: Both operands must be valid numbers.");
+                promptUser();
+                return;
+            }
+
+            // Perform the calculation
+            const result = calculate(num1, operator, num2);
+
+            // Display the result
+            console.log(`Result: ${result}`);
+
+            // Restart the prompt
+            promptUser();
+        });
+    };
+
+    promptUser();
+}
+
+// Start the calculator application
+startCalculator();
