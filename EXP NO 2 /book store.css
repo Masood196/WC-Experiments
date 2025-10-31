@@ -1,0 +1,23 @@
+.book-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.book-card:hover {
+    /* Subtle lift effect */
+    transform: translateY(-5px);
+    /* More pronounced shadow on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.add-to-cart-btn {
+    /* Use a color and transition for the button */
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #0056b3;
+}
